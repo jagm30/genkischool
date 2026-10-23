@@ -1,0 +1,818 @@
+:root {
+    --blue-primary: #193375; /* Azul corporativo */
+    --red-accent: #e52421;    /* Rojo corporativo */
+    --gold-accent: #d49a17;   /* Dorado corporativo */
+    --dark-text: #2d3748;     /* Gris oscuro para legibilidad */
+    --light-bg: #f7fafc;      /* Fondo gris premium */
+    --white: #ffffff;
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+    color: var(--dark-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-color: var(--white);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- TOP BAR --- */
+.top-bar {
+    background-color: var(--blue-primary);
+    color: var(--white);
+    font-size: 0.85rem;
+    padding: 8px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--gold-accent);
+}
+
+.top-bar .info-left span {
+    margin-right: 20px;
+}
+
+.top-bar .cta-right a {
+    background-color: var(--red-accent);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.top-bar .cta-right a:hover {
+    background-color: var(--white);
+    color: var(--blue-primary);
+}
+
+/* Alineación vertical perfecta del ícono con el texto */
+.info-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el ícono y el texto */
+  }
+  
+  /* Cambia el color de los íconos */
+  .info-item .icon {
+    color: #d49a17; /* Modifica este color según tu paleta */
+    flex-shrink: 0;
+  }
+
+
+
+/* --- ESTILOS GENERALES Y ESCRITORIO --- */
+.has-dropdown {
+    position: relative;
+}
+
+.nav-item-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-toggle {
+    display: none; /* Oculto en computadora */
+    cursor: pointer;
+    padding-left: 5px;
+    font-size: 10px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    list-style: none;
+    min-width: 160px;
+    z-index: 1000;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Hover solo para pantallas grandes */
+@media (min-width: 769px) {
+    .has-dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+/* --- ADAPTACIÓN PARA MÓVILES (Pantallas pequeñas) --- */
+@media (max-width: 768px) {
+    .dropdown-toggle {
+        display: inline-block; /* Aparece la flecha en móviles */
+    }
+
+    .dropdown-menu {
+        position: static; /* Cambia de flotante a bloque normal */
+        box-shadow: none;
+        background-color: #f9f9f9; /* Un tono diferente para distinguir el submenú */
+        padding-left: 20px; /* Indentación para denotar jerarquía */
+        width: 100%;
+    }
+
+    /* Clase que activará JavaScript al hacer clic */
+    .dropdown-menu.is-active {
+        display: block;
+    }
+}
+
+/* --- HEADER & NAVIGATION --- */
+.header {
+    background-color: var(--white);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 70px;
+    object-fit: contain;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-item {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--blue-primary);
+    position: relative;
+    padding: 5px 0;
+    transition: var(--transition);
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--red-accent);
+    transition: var(--transition);
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+.nav-item:hover {
+    color: var(--red-accent);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--blue-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+
+/* Flecha hacia abajo al lado de Oferta Educativa */
+.arrow-down {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 6px;
+    vertical-align: middle;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid currentColor; /* Toma el mismo color del texto */
+    transition: transform 0.3s ease;
+}
+
+/* Rotación de la flecha al pasar el mouse */
+.dropdown:hover .arrow-down {
+    transform: rotate(180deg);
+}
+
+/* Posicionamiento del item principal */
+.nav-menu li.dropdown {
+    position: static; /* Permite que el submenú ocupe todo el ancho de la ventana */
+}
+
+/* Submenú Desplegable a Ancho Completo (Mega Menu) */
+.dropdown-menu-full {
+    display: none;
+    position: absolute;
+    top: 100%;                      /* Aparece justo debajo de la barra de navegación */
+    left: 0;
+    width: 100vw;                   /* Ocupa el 100% del ancho de pantalla */
+    background-color: var(--white);
+    border-top: 3px solid var(--gold-accent); /* Detalle de acento dorado como en tu top-bar */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 70px 0;
+}
+
+
+/* Puente invisible para mantener el hover */
+.dropdown-menu-full::before {
+    content: "";
+    position: absolute;
+    top: -50px; /* Ajusta este valor según el tamaño del "hueco" */
+    left: 0;
+    width: 100%;
+    height: 50px; /* Debe ser el mismo valor que el 'top' pero en positivo */
+    background-color: transparent; /* Se mantiene invisible */
+}
+
+
+/* Mostrar el submenú al pasar el mouse por Oferta Educativa */
+.dropdown:hover .dropdown-menu-full {
+    display: block;
+}
+
+/* Estilos de la lista interna dentro del menú full-width */
+.dropdown-full-content {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;         /* Elementos apilados verticalmente al centro */
+    align-items: center;
+    gap: 2px;
+}
+
+/* Estilo de las opciones del menú */
+.dropdown-full-content li a {
+    color: var(--blue-primary);            /* Texto en blanco o var(--gold-accent) según preferencia */
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition, all 0.3s ease);
+    display: inline-block;
+}
+
+/* Efecto hover sobre cada opción */
+.dropdown-full-content li a:hover {
+    color: var(--gold-accent);      /* Cambia a acento dorado al pasar el cursor */
+    transform: scale(1.05);
+}
+
+
+
+/* Inicia apartado Método Genki */
+/* Variables de Color e Identidad */
+:root {
+  --genki-red: #e63946;
+  --genki-yellow: #ffb703;
+  --blue-primary: #193375;
+  --text-dark: #2b2d42;
+  --text-muted: #5c677d;
+  --card-bg: #ffffff;
+}
+
+/* Sección Contenedora Principal */
+.genki-section {
+  position: relative;
+  width: 100%;
+  background-color: #fafbfc;
+  padding: 60px 0 80px 0;
+  font-family: 'Montserrat', Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.genki-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero Section (Imagen + Título) */
+.genki-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+/* Animación de Aparición para la Imagen Principal */
+.genki-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatIn 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.genki-img {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Título */
+.genki-title-wrapper {
+  text-align: left;
+}
+
+.genki-title {
+  font-size: 3.8rem;
+  font-weight: 900;
+  color: var(--blue-primary);
+  line-height: 1.1;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.genki-title span {
+  color: var(--genki-blue);
+  font-size: 3.8rem;
+}
+
+.genki-subtitle {
+  font-size: 1.8rem;
+  color: #d49a17;
+  font-weight: 700;
+  margin-top: 10px;
+  letter-spacing: 2px;
+}
+
+/* Tarjetas de Pilares */
+.genki-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.pillar-card {
+  position: relative;
+  background: var(--card-bg);
+  padding: 35px 40px;
+  border-radius: 16px;
+  border-left: 5px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: all 0.35s ease;
+}
+
+/* Borde sutil según categoría */
+.pillar-card:nth-child(1) { border-left-color: var(--genki-red); }
+.pillar-card:nth-child(2) { border-left-color: var(--blue-primary); }
+.pillar-card:nth-child(3) { border-left-color: var(--gold-accent); }
+
+/* EFECTO HOVER: Resaltado sutil */
+.pillar-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+}
+
+.pillar-badge {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.badge-kaizen { color: var(--genki-red); background-color: rgba(230, 57, 70, 0.1); }
+.badge-dotouku { color: var(--genki-blue); background-color: rgba(29, 53, 87, 0.1); }
+.badge-bushido { color: #b45309; background-color: rgba(255, 183, 3, 0.2); }
+
+.pillar-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0 0 15px 0;
+  letter-spacing: 0.5px;
+}
+
+.pillar-text {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0 0 12px 0;
+  transition: color 0.3s ease;
+}
+
+.pillar-card:hover .pillar-text {
+  color: var(--text-dark);
+}
+
+.pillar-text:last-child {
+  margin-bottom: 0;
+}
+
+/* EFECTO SCROLL REVEAL (Aparición progresiva) */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Adaptación Móvil */
+@media (max-width: 768px) {
+  .genki-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .genki-title-wrapper {
+    text-align: center;
+  }
+
+  .genki-title {
+    font-size: 2rem;
+  }
+
+  .genki-title span {
+    font-size: 2.4rem;
+  }
+
+  .pillar-card {
+    padding: 25px 20px;
+  }
+}
+/* --- Termina apartado Método Genki --- */
+
+
+/* --- CONFIGURACIÓN GENERAL DEL FOOTER --- */
+.custom-footer {
+    background-color: #0b1a30; /* Azul oscuro del fondo */
+    color: #ffffff;
+    font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+    padding: 60px 20px 20px 20px;
+    font-size: 14px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+/* Títulos de las columnas */
+.custom-footer h3 {
+    color: #cca03a; /* Tono dorado/amarillo de la imagen */
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* Opción 1: Cambiar el color directo a la clase del SVG */
+.icon-svg {
+    color: #d49a17; /* Cambia este valor al color que necesites */
+    transition: color 0.3s ease;
+}
+
+
+/* --- COLUMNA 1: CONTACTO --- */
+.contact-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.contact-info .icon {
+    margin-right: 15px;
+    font-size: 18px;
+    color: #ffffff;
+    display: inline-block;
+    padding-top: 2px;
+}
+
+.contact-info p {
+    margin: 0;
+}
+
+.contact-info a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-info a:hover {
+    color: #cca03a;
+}
+
+/* --- COLUMNA 2: LINKS --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: transform 0.3s, color 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: #cca03a;
+    transform: translateX(5px);
+}
+
+/* --- COLUMNA 3: FORMULARIO --- */
+.footer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-form input,
+.footer-form textarea {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.footer-form input::placeholder,
+.footer-form textarea::placeholder {
+    color: #8fa0b5; /* Tono grisáceo para los placeholders */
+}
+
+.footer-form input:focus,
+.footer-form textarea:focus {
+    outline: none;
+    border-color: #cca03a;
+}
+
+.footer-form textarea {
+    resize: none;
+}
+
+.btn-submit {
+    background-color: #cca03a;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    letter-spacing: 0.5px;
+}
+
+.btn-submit:hover {
+    background-color: #e52421;
+}
+
+/* --- COLUMNA 4: REDES SOCIALES --- */
+.follow-text {
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Color por defecto de todos los íconos */
+.social-icon {
+    color: #ffffff; /* O el color que prefieras */
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+/* Cambiar color al pasar el cursor (Hover) */
+.social-icon:hover {
+    color: #ff4757; /* Color deseado al hacer hover */
+}
+
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none; /* Ajustable si prefieres el aro dorado completo */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.18); /* Agranda el ícono un 18% */
+}
+
+
+/* --- NUEVO: ESTILOS PARA EL BOTÓN DE VOLVER ARRIBA --- */
+.footer-top-link-container {
+    text-align: right;
+    margin: 0px 0 0px 0; /* Espacio arriba y abajo */
+}
+
+.back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background-color: #e52421; /* Rojo */
+    color: #ffffff; /* Texto blanco */
+    text-decoration: none;
+    padding: 10px 23px;
+    border-radius: 50px; /* Bordes muy redondeados */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.back-to-top .icon {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.back-to-top:hover {
+    background-color: #d49a17; /* Tono de dorado al hover */
+    box-shadow: 0 0 10px rgba(204, 160, 58, 0.5); /* Efecto de brillo sutil */
+    transform: translateY(-2px); /* Pequeño salto hacia arriba */
+}
+
+/* --- PIE DE PÁGINA (COPYRIGHT) --- */
+.footer-bottom {
+    margin-top: 50px;
+    border-top: 1px solid #b32d2d; /* La delgada línea roja de la captura */
+    padding-top: 20px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 12px;
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+/* --- RESPONSIVIDAD (MEDIA QUERIES) --- */
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+    
+    .custom-footer {
+        padding: 40px 15px 20px 15px;
+    }
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- MEDIA QUERIES --- */
+@media (max-width: 768px) {
+    .top-bar { display: none; }
+    .hamburger { display: flex; }
+    .nav-menu {
+        position: absolute; top: 90px; left: -100%; width: 100%;
+        height: calc(100vh - 90px); background-color: var(--white);
+        flex-direction: column; align-items: center; padding-top: 40px;
+        gap: 30px; transition: var(--transition); box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    }
+    .nav-menu.active { left: 0; }
+    .hero-content h1 { font-size: 2.2rem; }
+    .social-links { flex-direction: column; gap: 10px; padding: 0 10%; }
+}
+
+
+/* Contenedor principal a la derecha */
+.social-sidebar {
+    position: fixed;
+    right: 0;
+    top: 65%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaciado entre botones */
+    z-index: 9999; /* Asegura que esté por encima de otros elementos */
+  }
+  
+  /* Estilo base de los botones */
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 80px; /* Ancho que sobresale de la pantalla */
+    height: 60px; /* Altura del botón */
+    padding-left: 18px; /* Espaciado interno para centrar el icono visualmente */
+    border-radius: 30px 0 0 30px; /* Bordes redondeados solo del lado izquierdo */
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 35px; /* Tamaño del icono */
+    box-shadow: -3px 4px 10px rgba(0, 0, 0, 0.15); /* Sombra suave idéntica a la imagen */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  /* Efecto hover sutil al pasar el mouse */
+  .social-btn:hover {
+    transform: translateX(5px); /* Se desplaza ligeramente a la izquierda */
+    box-shadow: -5px 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Color oficial de WhatsApp */
+  .social-btn.whatsapp {
+    background-color: #39c24a;
+  }
+  
+  /* Color oficial de Facebook */
+  .social-btn.facebook {
+    background-color: #0b84ee;
+  }
+
+  /* Color oficial de TikTok */
+.social-btn.tiktok {
+    background-color: #2c2c2c;
+  }
+
