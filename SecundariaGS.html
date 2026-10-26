@@ -293,7 +293,17 @@
         });
 
         document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                // En móvil, "Nosotros" y "Oferta Educativa" abren su submenú en lugar de cerrar el menú
+                const dropdown = link.parentElement;
+                if (dropdown.classList.contains('dropdown') && window.innerWidth <= 768) {
+                    e.preventDefault();
+                    document.querySelectorAll('.dropdown.open').forEach(d => {
+                        if (d !== dropdown) d.classList.remove('open');
+                    });
+                    dropdown.classList.toggle('open');
+                    return;
+                }
                 navMenu.classList.remove('active');
                 hamburger.querySelectorAll('span').forEach(span => {
                     span.style.transform = 'none';
